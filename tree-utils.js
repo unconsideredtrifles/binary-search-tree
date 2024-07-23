@@ -63,4 +63,5 @@ const printTree = (node, prefix = '', isLeft = true) => {
 export {
   buildTree,
   printTree,
+  Node,
 };
