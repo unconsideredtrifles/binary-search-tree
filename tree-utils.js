@@ -1,20 +1,20 @@
 class Node {
-  #data;
+  #value;
   #left;
   #right;
 
-  constructor(data) {
-    this.#data = data;
+  constructor(value) {
+    this.#value = value;
     this.#left = null;
     this.#right = null;
   }
 
-  get data() {
-    return this.#data;
+  get value() {
+    return this.#value;
   }
 
-  set data(value) {
-    this.#data = value;
+  set value(value) {
+    this.#value = value;
   }
 
   get left() {
@@ -54,7 +54,7 @@ const printTree = (node, prefix = '', isLeft = true) => {
   if (node.right !== null) {
     printTree(node.right, `${prefix}${isLeft ? '│   ' : '    '}`, false);
   }
-  console.log(`${prefix}${isLeft ? '└── ' : '┌── '}${node.data}`);
+  console.log(`${prefix}${isLeft ? '└── ' : '┌── '}${node.value}`);
   if (node.left !== null) {
     printTree(node.left, `${prefix}${isLeft ? '    ' : '│   '}`, true);
   }
