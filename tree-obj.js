@@ -32,11 +32,6 @@ class Tree {
   }
 
   delete(value) {
-    // find the node to delete
-    // check if the node is left-nulled or right-nulled or both.
-    // If left-nulled, make its parent point to its right.
-    // If right-nulled, make its parent point to its left.
-
     if (this.#root === null) {
       return;
     }
