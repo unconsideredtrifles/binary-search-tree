@@ -86,6 +86,19 @@ class Tree {
     }
     return currentNode;
   }
+
+  find(value) {
+    let currentNode = this.#root;
+    while (currentNode !== null) {
+      if (value === currentNode.value) {
+        return currentNode;
+      }
+      currentNode = (
+        (value < currentNode.value) ? currentNode.left : currentNode.right
+      );
+    }
+    return null;
+  }
 }
 
 export default Tree;
