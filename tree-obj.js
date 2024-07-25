@@ -57,6 +57,9 @@ class Tree {
         lastTraversedDirection = 'right';
       }
     }
+    if (currentNode === null) {
+      return;
+    }
 
     if (currentNode.left === null) {
       parentNode[lastTraversedDirection] = currentNode.right;
