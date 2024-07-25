@@ -36,10 +36,10 @@ class Tree {
       return;
     }
 
-    Tree.removeNode(this.#root, value);
+    this.#removeNode(this.#root, value);
   }
 
-  static removeNode(startingNode, value, parent = null, traversedDirection = null) {
+  #removeNode(startingNode, value, parent = null, traversedDirection = null) {
     let currentNode = startingNode;
     let parentNode = parent;
     let lastTraversedDirection = traversedDirection;
@@ -62,13 +62,21 @@ class Tree {
     }
 
     if (currentNode.left === null) {
-      parentNode[lastTraversedDirection] = currentNode.right;
+      if (parentNode === null) {
+        this.#root = currentNode.right;
+      } else {
+        parentNode[lastTraversedDirection] = currentNode.right;
+      }
     } else if (currentNode.right === null) {
-      parentNode[lastTraversedDirection] = currentNode.left;
+      if (parentNode === null) {
+        this.#root = currentNode.left;
+      } else {
+        parentNode[lastTraversedDirection] = currentNode.left;
+      }
     } else {
       const inOrderSuccessor = Tree.getInOrderSuccessor(currentNode.right);
       currentNode.value = inOrderSuccessor.value;
-      Tree.removeNode(
+      this.#removeNode(
         currentNode.right,
         inOrderSuccessor.value,
         currentNode,
