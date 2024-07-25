@@ -94,6 +94,100 @@ class Tree {
     }
     return null;
   }
+
+  static checkIfFunction(arg) {
+    if (arg === undefined || typeof arg !== 'function') {
+      throw new Error('Please provide a callback function');
+    }
+  }
+
+  levelOrder(callback) {
+    Tree.checkIfFunction(callback);
+    if (this.#root === null) {
+      return;
+    }
+
+    let currentNode = this.#root;
+    const queue = [currentNode];
+    while (queue.length > 0) {
+      currentNode = queue.shift();
+      callback(currentNode);
+      if (currentNode.left !== null) {
+        queue.push(currentNode.left);
+      }
+      if (currentNode.right !== null) {
+        queue.push(currentNode.right);
+      }
+    }
+  }
+
+  inOrder(callback) {
+    Tree.checkIfFunction(callback);
+    if (this.#root === null) {
+      return;
+    }
+
+    let currentNode = this.#root;
+    const stack = [];
+    while (currentNode !== null || stack.length > 0) {
+      if (currentNode !== null) {
+        stack.push(currentNode);
+        currentNode = currentNode.left;
+      } else {
+        currentNode = stack.pop();
+        callback(currentNode);
+        currentNode = currentNode.right;
+      }
+    }
+  }
+
+  preOrder(callback) {
+    Tree.checkIfFunction(callback);
+    if (this.#root === null) {
+      return;
+    }
+
+    let currentNode = this.#root;
+    const stack = [];
+    while (currentNode !== null || stack.length > 0) {
+      if (currentNode === null) {
+        currentNode = stack.pop();
+        currentNode = currentNode.right;
+      }
+      callback(currentNode);
+      if (currentNode.right !== null) {
+        stack.push(currentNode);
+      }
+      currentNode = currentNode.left;
+    }
+  }
+
+  postOrder(callback) {
+    Tree.checkIfFunction(callback);
+    if (this.#root === null) {
+      return;
+    }
+
+    let currentNode = this.#root;
+    let rightTraversed = false;
+    const stack = [];
+    while (currentNode !== null || stack.length > 0) {
+      if (currentNode === null) {
+        [currentNode, rightTraversed] = stack.pop();
+        if (rightTraversed || currentNode.right === null) {
+          callback(currentNode);
+          currentNode = null;
+        } else {
+          // currentNode.right !== null
+          stack.push([currentNode, true]);
+          currentNode = currentNode.right;
+        }
+      } else {
+        stack.push([currentNode, false]);
+        currentNode = currentNode.left;
+      }
+    }
+  }
 }
 
 export default Tree;

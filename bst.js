@@ -8,3 +8,8 @@ printTree(tree.root);
 console.log('Removing \'4\' from the tree');
 tree.delete(4);
 printTree(tree.root);
+
+const printNodeValue = function printNodeValue(node) {
+  console.log(node.value);
+};
+tree.levelOrder(printNodeValue);
