@@ -210,8 +210,8 @@ class Tree {
 
   static getHeight(node) {
     let currentNode = node;
-    let maxHeight = 0;
-    let currentHeight = 0;
+    let maxNodeCount = 0;
+    let currentNodeCount = 0;
     const stack = [];
     while (currentNode !== null || stack.length > 0) {
       if (currentNode === null) {
@@ -220,18 +220,21 @@ class Tree {
           stack.push([tmpNode, true]);
           currentNode = tmpNode.right;
         } else {
-          currentHeight -= 1;
+          currentNodeCount -= 1;
         }
       } else {
         stack.push([currentNode, false]);
-        currentHeight += 1;
-        if (currentHeight > maxHeight) {
-          maxHeight = currentHeight;
+        currentNodeCount += 1;
+        if (currentNodeCount > maxNodeCount) {
+          maxNodeCount = currentNodeCount;
         }
         currentNode = currentNode.left;
       }
     }
-    return maxHeight;
+
+    let edgeCount = maxNodeCount - 1;
+    if (edgeCount < 0) edgeCount = 0;
+    return edgeCount;
   }
 }
 
