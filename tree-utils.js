@@ -39,7 +39,7 @@ const buildTree = function buildTree(arr, start = 0, end = arr.length - 1) {
     return null;
   }
 
-  const mid = (start + end) / 2;
+  const mid = Math.floor((start + end) / 2);
   const node = new Node(arr[mid]);
   node.left = buildTree(arr, start, mid - 1);
   node.right = buildTree(arr, mid + 1, end);
