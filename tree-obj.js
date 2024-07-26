@@ -236,6 +236,54 @@ class Tree {
     if (edgeCount < 0) edgeCount = 0;
     return edgeCount;
   }
+
+  depth(node) {
+    let nodeCount = 0;
+    let currentNode = this.#root;
+    while (currentNode.value !== node.value) {
+      console.log(currentNode.value);
+      if (node.value < currentNode.value) {
+        currentNode = currentNode.left;
+      } else {
+        // node.value > currentNode.value
+        currentNode = currentNode.right;
+      }
+      nodeCount += 1;
+      if (currentNode === null) {
+        break;
+      }
+    }
+
+    let edgeCount = nodeCount;
+    if (edgeCount < 0) edgeCount = 0;
+    return edgeCount;
+  }
+
+  isBalanced() {
+    if (this.#root === null) {
+      return false;
+    }
+
+    const leftTreeHeight = Tree.getHeight(this.#root.left);
+    const rightTreeHeight = Tree.getHeight(this.#root.right);
+    const heightDifference = Math.abs(leftTreeHeight - rightTreeHeight);
+    if (heightDifference > 1) {
+      return false;
+    }
+    return true;
+  }
+
+  rebalance() {
+    if (this.isBalanced()) {
+      return;
+    }
+    const sortedNodes = [];
+    const collectNodes = (eachNode) => {
+      sortedNodes.push(eachNode.value);
+    };
+    this.inOrder(collectNodes);
+    this.#root = buildTree(sortedNodes);
+  }
 }
 
 export default Tree;
