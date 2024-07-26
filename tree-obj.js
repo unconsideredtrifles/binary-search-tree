@@ -199,6 +199,36 @@ class Tree {
       }
     }
   }
+
+  height() {
+    return Tree.getHeight(this.#root);
+  }
+
+  static getHeight(node) {
+    let currentNode = node;
+    let maxHeight = 0;
+    let currentHeight = 0;
+    const stack = [];
+    while (currentNode !== null || stack.length > 0) {
+      if (currentNode === null) {
+        const [tmpNode, rightTraversed] = stack.pop();
+        if (tmpNode.right !== null && !rightTraversed) {
+          stack.push([tmpNode, true]);
+          currentNode = tmpNode.right;
+        } else {
+          currentHeight -= 1;
+        }
+      } else {
+        stack.push([currentNode, false]);
+        currentHeight += 1;
+        if (currentHeight > maxHeight) {
+          maxHeight = currentHeight;
+        }
+        currentNode = currentNode.left;
+      }
+    }
+    return maxHeight;
+  }
 }
 
 export default Tree;
