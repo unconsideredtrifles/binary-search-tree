@@ -2,6 +2,7 @@ import { Node, buildTree } from './tree-utils.js';
 
 class Tree {
   #root;
+
   constructor(arr) {
     if (!Array.isArray(arr) || arr.length <= 0) {
       this.#root = null;

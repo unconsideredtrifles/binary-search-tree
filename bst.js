@@ -2,6 +2,7 @@ import Tree from './tree-obj.js';
 
 class RandNumGenerator {
   #randNumPool = [];
+
   constructor(totalItems = 10) {
     let numCount = 0;
     while (numCount < totalItems) {
